@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A Voz do Pregador</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f7f7f7; }
+    h1 { color: #3e3e3e; text-align: center; }
+    .noticia { background: #fff; padding: 15px; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    textarea, input { width: 100%; padding: 10px; margin-top: 10px; border-radius: 5px; border: 1px solid #ccc; }
+    button { padding: 10px 20px; margin-top: 10px; background-color: #4caf50; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background-color: #45a049; }
+    .compartilhar { margin-top: 10px; display: flex; gap: 10px; }
+    .compartilhar a { text-decoration: none; background: #25D366; color: white; padding: 5px 10px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>A Voz do Pregador</h1>
+  <div id="formulario">
+    <input type="text" id="titulo" placeholder="Título da notícia" />
+    <textarea id="conteudo" rows="4" placeholder="Digite a notícia aqui..."></textarea>
+    <button onclick="publicar()">Publicar</button>
+  </div>
+  <div id="noticias"></div>
+
+  <script>
+    function publicar() {
+      const titulo = document.getElementById('titulo').value;
+      const conteudo = document.getElementById('conteudo').value;
+
+      if (titulo && conteudo) {
+        const container = document.getElementById('noticias');
+        const noticia = document.createElement('div');
+        noticia.className = 'noticia';
+        noticia.innerHTML = `
+          <h2>${titulo}</h2>
+          <p>${conteudo}</p>
+          <div class='compartilhar'>
+            <a href='https://wa.me/?text=${encodeURIComponent(titulo + "\n" + conteudo)}' target='_blank'>Compartilhar no WhatsApp</a>
+            <a href='https://www.facebook.com/sharer/sharer.php?u=https://avozdopregador.com' target='_blank'>Compartilhar no Facebook</a>
+          </div>
+        `;
+        container.prepend(noticia);
+
+        // Limpa os campos
+        document.getElementById('titulo').value = '';
+        document.getElementById('conteudo').value = '';
+      }
+    }
+  </script>
+</body>
+</html>
